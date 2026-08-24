@@ -6,6 +6,9 @@ export default defineConfig({
 	plugins: [
 		cloudflareTest(async () => ({
 			wrangler: { configPath: "./wrangler.json" },
+			// EMAIL uses remote: true in wrangler.json so local/dev hits Email Service.
+			// Tests stay on the local simulator and do not require Cloudflare credentials.
+			remoteBindings: false,
 			miniflare: {
 				bindings: {
 					TEST_MIGRATIONS: await readD1Migrations(path.join(import.meta.dirname, "migrations")),
