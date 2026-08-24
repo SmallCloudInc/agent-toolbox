@@ -328,7 +328,7 @@ async function Page({ origin }: { origin: string }) {
             </a>
             <a
               class="ml-6 text-sm text-dim transition-colors hover:text-ink"
-              href="https://github.com/fayazara/headlesstools"
+              href="https://github.com/SmallCloudInc/agent-toolbox"
               target="_blank"
               rel="noreferrer"
             >

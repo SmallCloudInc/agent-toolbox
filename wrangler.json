@@ -4,9 +4,9 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "headlesstools",
+	"name": "agent-toolbox",
 	"main": "./src/worker/index.ts",
-	"account_id": "7e259235995e0f3d11b31545743b30a3",
+	"account_id": "3c445f673c4e1e5dcca897aa7f6c3c30",
 	"compatibility_date": "2026-08-24",
 	"compatibility_flags": [
 		"nodejs_compat",
@@ -22,7 +22,7 @@
 		"run_worker_first": true
 	},
 	"routes": [
-		{ "pattern": "hdls.tools", "custom_domain": true }
+		{ "pattern": "agent-toolbox.smallcloudinc.com", "custom_domain": true }
 	],
 	/**
 	 * Smart Placement
@@ -38,20 +38,22 @@
 	"d1_databases": [
 		{
 			"binding": "DB",
-			"database_name": "headlesstools-db",
-			"database_id": "7af4d86b-870f-4869-bb8e-2b6dda3d0e10"
+			"database_name": "agent-toolbox-db",
+			// PLACEHOLDER: create with `wrangler d1 create agent-toolbox-db` on account 3c445f673c4e1e5dcca897aa7f6c3c30, then paste the database_id here.
+			"database_id": "<REPLACE_WITH_D1_DATABASE_ID>"
 		}
 	],
 	"r2_buckets": [
 		{
 			"binding": "R2",
-			"bucket_name": "headlesstools"
+			"bucket_name": "agent-toolbox"
 		}
 	],
 	"kv_namespaces": [
 		{
 			"binding": "OAUTH_KV",
-			"id": "be1b9ee783594040bbf3ffd836f770b6"
+			// PLACEHOLDER: create with `wrangler kv namespace create OAUTH_KV` on account 3c445f673c4e1e5dcca897aa7f6c3c30, then paste the namespace id here.
+			"id": "<REPLACE_WITH_OAUTH_KV_NAMESPACE_ID>"
 		}
 	],
 	"send_email": [
@@ -88,7 +90,7 @@
 	 * https://developers.cloudflare.com/workers/configuration/secrets/
 	 */
 	"vars": {
-		"INBOX_DOMAIN": "hdls.tools"
+		"INBOX_DOMAIN": "agent-toolbox.smallcloudinc.com"
 	},
 	"triggers": {
 		"crons": ["0 * * * *", "* * * * *"]

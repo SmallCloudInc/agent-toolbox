@@ -1,5 +1,5 @@
 {
-	"name": "headlesstools",
+	"name": "agent-toolbox",
 	"description": "MCP-first SaaS tools for AI agents",
 	"dependencies": {
 		"@cloudflare/workers-oauth-provider": "^0.10.3",
@@ -55,8 +55,8 @@
 		"preview": "npm run build && vite preview",
 		"test": "vitest run",
 		"db:generate": "drizzle-kit generate",
-		"db:migrate:local": "wrangler d1 migrations apply headlesstools-db",
-		"db:migrate:remote": "wrangler d1 migrations apply headlesstools-db --remote",
+		"db:migrate:local": "wrangler d1 migrations apply agent-toolbox-db",
+		"db:migrate:remote": "wrangler d1 migrations apply agent-toolbox-db --remote",
 		"db:studio": "drizzle-kit studio"
 	},
 	"type": "module"

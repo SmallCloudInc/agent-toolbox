@@ -11,7 +11,7 @@ interface __BaseEnv_Env {
 	CREATE_RATE_LIMITER: RateLimit;
 	SEND_RATE_LIMITER: RateLimit;
 	ASSETS: Fetcher;
-	INBOX_DOMAIN: "hdls.tools";
+	INBOX_DOMAIN: "agent-toolbox.smallcloudinc.com";
 }
 declare namespace Cloudflare {
 	interface GlobalProps {
