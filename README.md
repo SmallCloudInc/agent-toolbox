@@ -166,7 +166,7 @@ After changing `src/db/schema.ts`, generate a new migration:
 pnpm db:generate
 ```
 
-`wrangler.json` is bound to the SmallCloudInc Cloudflare account (`account_id` `3c445f673c4e1e5dcca897aa7f6c3c30`) and the `agent-toolbox.smallcloudinc.com` custom domain. Worker name, D1 `database_name`, and R2 `bucket_name` are `agent-toolbox` / `agent-toolbox-db` / `agent-toolbox`. D1 `database_id` and the `OAUTH_KV` namespace `id` are placeholders until those resources are created on that account (`wrangler d1 create agent-toolbox-db`, `wrangler kv namespace create OAUTH_KV`) and the IDs are pasted in. `INBOX_DOMAIN` is `agent-toolbox.smallcloudinc.com`.
+`wrangler.json` is bound to the SmallCloudInc Cloudflare account (`account_id` `3c445f673c4e1e5dcca897aa7f6c3c30`) and the `agent-toolbox.smallcloudinc.com` custom domain. Worker name is `agent-toolbox`, D1 is `agent-toolbox-db` (`c0073068-0bc4-4e9d-b850-37f89f0b0733`), R2 is `agent-toolbox`, and `OAUTH_KV` is `9ae20284bb974819817fbe1b776c8430`. `INBOX_DOMAIN` is `agent-toolbox.smallcloudinc.com`.
 
 ## Deploy
 

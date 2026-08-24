@@ -39,8 +39,7 @@
 		{
 			"binding": "DB",
 			"database_name": "agent-toolbox-db",
-			// PLACEHOLDER: create with `wrangler d1 create agent-toolbox-db` on account 3c445f673c4e1e5dcca897aa7f6c3c30, then paste the database_id here.
-			"database_id": "<REPLACE_WITH_D1_DATABASE_ID>"
+			"database_id": "c0073068-0bc4-4e9d-b850-37f89f0b0733"
 		}
 	],
 	"r2_buckets": [
@@ -52,8 +51,7 @@
 	"kv_namespaces": [
 		{
 			"binding": "OAUTH_KV",
-			// PLACEHOLDER: create with `wrangler kv namespace create OAUTH_KV` on account 3c445f673c4e1e5dcca897aa7f6c3c30, then paste the namespace id here.
-			"id": "<REPLACE_WITH_OAUTH_KV_NAMESPACE_ID>"
+			"id": "9ae20284bb974819817fbe1b776c8430"
 		}
 	],
 	"send_email": [
