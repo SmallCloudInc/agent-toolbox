@@ -140,7 +140,7 @@ Uploaded HTML, SVG, and other active content is served as a download. Only a sma
 - [Drizzle ORM](https://orm.drizzle.team/) over [D1](https://developers.cloudflare.com/d1/)
 - [R2](https://developers.cloudflare.com/r2/) for uploaded files
 - [Workers KV](https://developers.cloudflare.com/kv/) for OAuth state
-- [Email Routing / Send Email](https://developers.cloudflare.com/email-routing/) for the mailbox and reminders
+- [Email Service](https://developers.cloudflare.com/email-service/) for the mailbox and reminders
 - [`@cloudflare/workers-oauth-provider`](https://github.com/cloudflare/workers-oauth-provider) for MCP OAuth
 - [Shiki](https://shiki.style/) for the syntax-highlighted docs blocks
 - Tailwind CSS v4
@@ -152,7 +152,7 @@ pnpm install
 pnpm dev
 ```
 
-`pnpm dev` runs on the Cloudflare Vite plugin, which emulates the bindings declared in `wrangler.json` (D1, R2, KV, Email, rate limits) locally.
+`pnpm dev` runs on the Cloudflare Vite plugin. D1, R2, KV, and rate limits stay local; EMAIL is remote and sends real mail; tests keep the local simulator via vitest `remoteBindings: false`.
 
 Apply migrations locally:
 
