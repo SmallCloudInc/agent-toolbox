@@ -152,7 +152,7 @@ pnpm install
 pnpm dev
 ```
 
-`pnpm dev` runs on the Cloudflare Vite plugin, which emulates the bindings declared in `wrangler.json` (D1, R2, KV, Email, rate limits) locally.
+`pnpm dev` runs on the Cloudflare Vite plugin. D1, R2, KV, and rate limits stay local; EMAIL is remote and sends real mail; tests keep the local simulator via vitest `remoteBindings: false`.
 
 Apply migrations locally:
 
