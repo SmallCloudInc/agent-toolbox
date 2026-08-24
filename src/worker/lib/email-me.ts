@@ -4,7 +4,7 @@ import { InvalidEmailError, validateOutboundEmail } from "./email-validation";
 import { assertOutboundEmailQuota, QuotaExceededError } from "./quotas";
 import { isUniqueConstraintError } from "./validation";
 
-const NOTIFY_FROM = "reminders@hdls.tools";
+const notifyFrom = (env: Env) => `reminders@${env.INBOX_DOMAIN}`;
 const MAX_ATTEMPTS = 5;
 const MAX_DISPATCH_BATCH = 100;
 
@@ -91,7 +91,7 @@ async function deliverScheduledEmail(env: Env, db: Db, id: string) {
 	try {
 		await env.EMAIL.send({
 			to: claimed.toAddress,
-			from: { email: NOTIFY_FROM, name: "headlesstools" },
+			from: { email: notifyFrom(env), name: "headlesstools" },
 			subject: claimed.subject,
 			text: claimed.textBody ?? undefined,
 			html: claimed.htmlBody ?? undefined,

@@ -9,4 +9,4 @@ Disallow: /.well-known/
 Disallow: /p/
 Disallow: /f/
 
-Sitemap: https://hdls.tools/sitemap.xml
+Sitemap: https://agent-toolbox.smallcloudinc.com/sitemap.xml

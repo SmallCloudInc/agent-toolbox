@@ -3,7 +3,7 @@ import { getDb, accounts, loginCodes } from "../../db";
 import { generateLoginCode, hashLoginCode } from "./keys";
 
 const CODE_TTL_MS = 10 * 60 * 1000;
-const AUTH_FROM = "auth@hdls.tools";
+const authFrom = (env: Env) => `auth@${env.INBOX_DOMAIN}`;
 
 export async function sendLoginCode(
 	env: Env,
@@ -31,7 +31,7 @@ export async function sendLoginCode(
 	ctx.waitUntil(
 		env.EMAIL.send({
 			to: email,
-			from: { email: AUTH_FROM, name: "headlesstools" },
+			from: { email: authFrom(env), name: "headlesstools" },
 			subject: `${code} is your headlesstools login code`,
 			text: `Your login code is ${code}. It expires in 10 minutes.`,
 			html: `<p>Your login code is <strong>${code}</strong>. It expires in 10 minutes.</p>`,

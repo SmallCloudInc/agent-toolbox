@@ -18,7 +18,7 @@ async function seedAccount(id: string, email: string) {
 
 describe("security-sensitive workflows", () => {
 	it("completes the browser OTP flow with an OAuth authorization grant", async () => {
-		const registration = await SELF.fetch("https://hdls.tools/oauth/register", {
+		const registration = await SELF.fetch("https://agent-toolbox.smallcloudinc.com/oauth/register", {
 			method: "POST",
 			headers: { "content-type": "application/json" },
 			body: JSON.stringify({
@@ -47,7 +47,7 @@ describe("security-sensitive workflows", () => {
 			scope: "mcp",
 			state: "integration-state",
 		});
-		const authorize = await SELF.fetch(`https://hdls.tools/authorize?${query}`);
+		const authorize = await SELF.fetch(`https://agent-toolbox.smallcloudinc.com/authorize?${query}`);
 		expect(authorize.status).toBe(200);
 		expect(authorize.headers.get("content-security-policy")).not.toContain("form-action 'self'");
 
@@ -60,7 +60,7 @@ describe("security-sensitive workflows", () => {
 			.bind(crypto.randomUUID(), email, await hashLoginCode(code), now + 600, now)
 			.run();
 
-		const verify = await SELF.fetch("https://hdls.tools/authorize/verify", {
+		const verify = await SELF.fetch("https://agent-toolbox.smallcloudinc.com/authorize/verify", {
 			method: "POST",
 			headers: { "content-type": "application/x-www-form-urlencoded" },
 			body: new URLSearchParams({ qs: `?${query}`, email, code }),
@@ -171,7 +171,7 @@ describe("security-sensitive workflows", () => {
 			.bind(crypto.randomUUID(), slug, accountId, r2Key, "payload.svg", "image/svg+xml", 29, Math.floor(Date.now() / 1000))
 			.run();
 
-		const response = await fileRawRoutes.request(`https://hdls.tools/${slug}`, undefined, env);
+		const response = await fileRawRoutes.request(`https://agent-toolbox.smallcloudinc.com/${slug}`, undefined, env);
 		expect(response.headers.get("content-disposition")).toMatch(/^attachment;/);
 		expect(response.headers.get("content-security-policy")).toBe("sandbox; default-src 'none'");
 		expect(response.headers.get("cache-control")).toBe("no-store");
@@ -184,19 +184,19 @@ describe("security-sensitive workflows", () => {
 		await createFileFromBytes(getDb(env.DB), env, accountId, new TextEncoder().encode("first"), {
 			filename: "first.txt",
 			slug,
-		}, "https://hdls.tools");
+		}, "https://agent-toolbox.smallcloudinc.com");
 
 		await expect(createFileFromBytes(getDb(env.DB), env, accountId, new TextEncoder().encode("second"), {
 			filename: "second.txt",
 			slug,
-		}, "https://hdls.tools")).rejects.toThrow("slug already taken");
+		}, "https://agent-toolbox.smallcloudinc.com")).rejects.toThrow("slug already taken");
 		expect(await (await env.R2.get(`files/${slug}`))?.text()).toBe("first");
 	});
 
 	it("sends only once for concurrent retries with one idempotency key", async () => {
 		const accountId = crypto.randomUUID();
 		const inboxId = crypto.randomUUID();
-		const address = `${accountId}@hdls.tools`;
+		const address = `${accountId}@${env.INBOX_DOMAIN}`;
 		await seedAccount(accountId, `${accountId}@example.com`);
 		await env.DB.prepare("INSERT INTO inboxes (id, address, account_id, created_at) VALUES (?, ?, ?, ?)")
 			.bind(inboxId, address, accountId, Math.floor(Date.now() / 1000))

@@ -1,10 +1,10 @@
-# headlesstools
+# Agent Toolbox
 
-Headless tools for AI agents.
+Self-hosted MCP-first tools for AI agents on SmallCloudInc.
 
 Callable as MCP tools or a plain REST API, right from Claude Code, Codex, Cursor, OpenCode, Grok CLI, or any harness that speaks MCP or HTTP.
 
-Sign up at [hdls.tools](https://hdls.tools)
+Sign up at [agent-toolbox.smallcloudinc.com](https://agent-toolbox.smallcloudinc.com)
 
 
 
@@ -16,7 +16,7 @@ https://github.com/user-attachments/assets/a6846cd4-9524-4a0a-8ca3-4e5464a02f30
 
 - **URL shortener** (`shorten_url`) — long URL in, short link out, with click tracking.
 - **Pastebin** (`create_paste`) — share text/code snippets with a link. private, unlisted, or burn-after-read.
-- **Mailbox** (`create_inbox`) — claim a real `handle@hdls.tools` address. read OTPs and webhooks, send and receive, threaded replies. one per account.
+- **Mailbox** (`create_inbox`) — claim a real `handle@agent-toolbox.smallcloudinc.com` address. read OTPs and webhooks, send and receive, threaded replies. one per account.
 - **Email me** (`email_me`) — email yourself right now, or schedule it for a future timestamp.
 - **File sharing** (`create_file`) — get a one-time upload URL, PUT the raw file to it, get back a public link. up to 10MB, no base64 anywhere.
 
@@ -27,20 +27,20 @@ https://github.com/user-attachments/assets/a6846cd4-9524-4a0a-8ca3-4e5464a02f30
 **Claude Code**
 
 ```bash
-claude mcp add --transport http headlesstools https://hdls.tools/mcp
+claude mcp add --transport http agent-toolbox https://agent-toolbox.smallcloudinc.com/mcp
 ```
 
 **Grok CLI**
 
 ```bash
-grok mcp add --transport http headlesstools https://hdls.tools/mcp
+grok mcp add --transport http agent-toolbox https://agent-toolbox.smallcloudinc.com/mcp
 ```
 
 **Codex CLI**
 
 ```bash
-codex mcp add headlesstools --url https://hdls.tools/mcp
-codex mcp login headlesstools
+codex mcp add agent-toolbox --url https://agent-toolbox.smallcloudinc.com/mcp
+codex mcp login agent-toolbox
 ```
 
 **Cursor** (`.cursor/mcp.json`)
@@ -48,7 +48,7 @@ codex mcp login headlesstools
 ```json
 {
   "mcpServers": {
-    "headlesstools": { "url": "https://hdls.tools/mcp" }
+    "agent-toolbox": { "url": "https://agent-toolbox.smallcloudinc.com/mcp" }
   }
 }
 ```
@@ -56,8 +56,8 @@ codex mcp login headlesstools
 **OpenCode**
 
 ```bash
-opencode mcp add headlesstools --url https://hdls.tools/mcp
-opencode mcp auth headlesstools
+opencode mcp add agent-toolbox --url https://agent-toolbox.smallcloudinc.com/mcp
+opencode mcp auth agent-toolbox
 ```
 
 ### MCP tools
@@ -84,11 +84,11 @@ opencode mcp auth headlesstools
 Prefer plain HTTP? Sign up, verify, and use the API key as a bearer token.
 
 ```bash
-curl -X POST https://hdls.tools/v1/auth/signup -d '{"email":"you@example.com"}'
-curl -X POST https://hdls.tools/v1/auth/verify -d '{"email":"...","code":"123456"}'
+curl -X POST https://agent-toolbox.smallcloudinc.com/v1/auth/signup -d '{"email":"you@example.com"}'
+curl -X POST https://agent-toolbox.smallcloudinc.com/v1/auth/verify -d '{"email":"...","code":"123456"}'
 # => {"apiKey":"hlt_live_..."}
 
-curl -X POST https://hdls.tools/v1/links -H "authorization: Bearer hlt_live_..." \
+curl -X POST https://agent-toolbox.smallcloudinc.com/v1/links -H "authorization: Bearer hlt_live_..." \
   -d '{"url":"https://example.com"}'
 ```
 
@@ -96,17 +96,17 @@ Uploading a file from disk? Send the raw bytes as the request body — never bas
 
 ```bash
 curl -T ./photo.png -H "authorization: Bearer hlt_live_..." \
-  "https://hdls.tools/v1/files?filename=photo.png"
+  "https://agent-toolbox.smallcloudinc.com/v1/files?filename=photo.png"
 ```
 
 No API key handy (e.g. an MCP-connected agent)? Two steps: request an upload URL, then PUT the file to it — the URL itself is the one-time credential, valid for 10 minutes:
 
 ```bash
-curl -X POST https://hdls.tools/v1/files -H "authorization: Bearer hlt_live_..." \
+curl -X POST https://agent-toolbox.smallcloudinc.com/v1/files -H "authorization: Bearer hlt_live_..." \
   -d '{"filename":"photo.png"}'
-# => {"uploadUrl":"https://hdls.tools/v1/files/upload/<token>","expiresAt":"..."}
+# => {"uploadUrl":"https://agent-toolbox.smallcloudinc.com/v1/files/upload/<token>","expiresAt":"..."}
 
-curl -T ./photo.png "https://hdls.tools/v1/files/upload/<token>"
+curl -T ./photo.png "https://agent-toolbox.smallcloudinc.com/v1/files/upload/<token>"
 ```
 
 | Resource | Endpoints |
@@ -118,7 +118,7 @@ curl -T ./photo.png "https://hdls.tools/v1/files/upload/<token>"
 | `/v1/email-me` | `POST /` |
 | `/v1/files` | `POST /` (mint an upload token), `PUT /upload/:token` (finish it), `PUT /` (one-shot raw upload with API key), `GET /`, `DELETE /:slug`. All uploads are raw bytes, max 10MB |
 
-Short links resolve at the bare root (`hdls.tools/:slug`), paste content is served raw at `/p/:slug`, and uploaded files at `/f/:slug`.
+Short links resolve at the bare root (`agent-toolbox.smallcloudinc.com/:slug`), paste content is served raw at `/p/:slug`, and uploaded files at `/f/:slug`.
 
 The homepage also returns a markdown rendition when requested with `Accept: text/markdown`, for agents that would rather not parse HTML.
 
@@ -166,7 +166,7 @@ After changing `src/db/schema.ts`, generate a new migration:
 pnpm db:generate
 ```
 
-The IDs in `wrangler.json` (D1 database, R2 bucket, KV namespace, custom domain) point at the author's Cloudflare account. If you fork this repo, swap them for your own (`wrangler d1 create`, `wrangler r2 bucket create`, `wrangler kv namespace create`) and update `INBOX_DOMAIN` to a domain you control with Email Routing enabled.
+`wrangler.json` is bound to the SmallCloudInc Cloudflare account (`account_id` `3c445f673c4e1e5dcca897aa7f6c3c30`) and the `agent-toolbox.smallcloudinc.com` custom domain. Worker name is `agent-toolbox`, D1 is `agent-toolbox-db` (`c0073068-0bc4-4e9d-b850-37f89f0b0733`), R2 is `agent-toolbox`, and `OAUTH_KV` is `9ae20284bb974819817fbe1b776c8430`. `INBOX_DOMAIN` is `agent-toolbox.smallcloudinc.com`.
 
 ## Deploy
 

@@ -115,7 +115,7 @@ function buildServer(env: Env, accountId: string, baseUrl: string) {
 		"create_inbox",
 		{
 			description:
-				"Claim your email address by picking a handle (e.g. handle=\"acme-bot\" gives you acme-bot@hdls.tools). One address per account - call list_inboxes first to check if you already have one.",
+				`Claim your email address by picking a handle (e.g. handle="acme-bot" gives you acme-bot@${env.INBOX_DOMAIN}). One address per account - call list_inboxes first to check if you already have one.`,
 			inputSchema: z.object({
 				handle: z
 					.string()
