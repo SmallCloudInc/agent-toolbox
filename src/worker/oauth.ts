@@ -249,7 +249,7 @@ oauthRoutes.post("/authorize/code", async (c) => {
 		return renderCodeStep(qs, email, "Too many requests, try again shortly");
 	}
 
-	await sendLoginCode(c.env, email, c.executionCtx);
+	await sendLoginCode(c.env, email);
 	return renderCodeStep(qs, email);
 });
 

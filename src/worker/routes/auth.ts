@@ -31,8 +31,12 @@ app.post("/signup", async (c) => {
 		return c.json({ error: "too many requests, try again shortly" }, 429);
 	}
 
-	await sendLoginCode(c.env, email, c.executionCtx);
-	return c.json({ ok: true });
+	const send = await sendLoginCode(c.env, email);
+	return c.json(
+		send.sendError
+			? { ok: true, sendError: send.sendError, sendPath: send.sendPath ?? "none" }
+			: { ok: true, sendPath: send.sendPath },
+	);
 });
 
 app.post("/verify", async (c) => {
